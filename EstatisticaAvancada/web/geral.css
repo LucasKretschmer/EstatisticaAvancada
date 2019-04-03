@@ -1,0 +1,30 @@
+.accordion {
+    background-color: #eee;
+    color: #444;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    text-align: left;
+    border: none;
+    outline: none;
+    transition: .6s;
+}
+.active, .accordion:hover {
+    background-color: #ccc;
+    transition: .6s;
+}
+.panel {
+    padding: 0 18px;
+    background-color: white;
+    overflow: hidden;
+    max-height: 0;
+    transition: .6s;
+}
+.visivel{
+    max-height: 50em;
+    transition: .6s;
+}
+.selected{
+    background-color: #ccc;
+    transition: .4s;
+}
