@@ -1,36 +1,30 @@
 //Deleta DataBase
 Dexie.delete("BANCO-ESTATISTICA");
 //Cria Nova DataBase
-var db = new Dexie('BANCO-ESTATISTICA');
+const db = new Dexie('BANCO-ESTATISTICA');
 db.version(1).stores({
     //Tabelas e seus campos
-    people: '++id,variavel,valor'
-});
+    IDENTVAR: '++id,variavel,valor'
+})
 
-//Salvar valor na tabela campo: valor
-/* Valores padrões para iniciar o programa
+function init() {
+    /* Valores padrões para iniciar o programa
 DECLARAÇÃO DAS VARIAVEIS */
-db.people.add({
-    variavel: 'Profissão',
-    valor: ''
-});
+    newRegister('IDENTVAR', { variavel: 'Profissão', valor: 'Nominal' });
+    newRegister('IDENTVAR', { variavel: 'Sexo', valor: 'Nominal' });
+    newRegister('IDENTVAR', { variavel: 'Religião', valor: 'Nominal' });
+    newRegister('IDENTVAR', { variavel: 'Escolaridade', valor: 'Ordinal' });
+    newRegister('IDENTVAR', { variavel: 'Numero', valor: 'Discreta' });
+    newRegister('IDENTVAR', { variavel: 'Altura', valor: 'Contínua' });
+    newRegister('IDENTVAR', { variavel: 'Peso', valor: 'Contínua' });
+    newRegister('IDENTVAR', { variavel: 'Salário', valor: 'Contínua' });
 
-db.people.add({
-    variavel: 'Sexo',
-    valor: ''
-});
-
-db.people.add({
-    variavel: 'Profissão',
-    valor: ''
-});
-
+}
 
 function newRegister(tabela, object) {
     db[tabela].add(object);
 }
 
-newRegister('people', {variavel: 'aaaa',valor:'zzzz'});
 
 /*
 await db.friends.add({
@@ -65,3 +59,4 @@ function retornaValor(tabela, campo, operador, valor) {
 
 //Retornar todos os dados da tabela []    
 //db.people.toArray().then(people => console.log(people))
+init();
