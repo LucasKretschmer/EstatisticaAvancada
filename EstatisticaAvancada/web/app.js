@@ -5,7 +5,7 @@ const db = new Dexie('BANCO-ESTATISTICA');
 db.version(1).stores({
     //Tabelas e seus campos
     IDENTVAR: '++id,variavel,valor'
-})
+});
 
 function init() {
     /* Valores padrões para iniciar o programa
