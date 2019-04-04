@@ -9,15 +9,18 @@ db.version(1).stores({
 
 function init() {
     /* Valores padrões para iniciar o programa
-DECLARAÇÃO DAS VARIAVEIS */
-    newRegister('IDENTVAR', { variavel: 'Profissão', valor: 'Nominal' });
-    newRegister('IDENTVAR', { variavel: 'Sexo', valor: 'Nominal' });
-    newRegister('IDENTVAR', { variavel: 'Religião', valor: 'Nominal' });
-    newRegister('IDENTVAR', { variavel: 'Escolaridade', valor: 'Ordinal' });
-    newRegister('IDENTVAR', { variavel: 'Numero', valor: 'Discreta' });
-    newRegister('IDENTVAR', { variavel: 'Altura', valor: 'Contínua' });
-    newRegister('IDENTVAR', { variavel: 'Peso', valor: 'Contínua' });
-    newRegister('IDENTVAR', { variavel: 'Salário', valor: 'Contínua' });
+     DECLARAÇÃO DAS VARIAVEIS */
+    newRegister('IDENTVAR', {variavel: 'PROFISSÃO', valor: 'Nominal'});
+    newRegister('IDENTVAR', {variavel: 'PROFISSAO', valor: 'Nominal'});
+    newRegister('IDENTVAR', {variavel: 'SEXO', valor: 'Nominal'});
+    newRegister('IDENTVAR', {variavel: 'RELIGIÃO', valor: 'Nominal'});
+    newRegister('IDENTVAR', {variavel: 'ESCOLARIDADE', valor: 'Ordinal'});
+    newRegister('IDENTVAR', {variavel: 'NÚMERO', valor: 'Discreta'});
+    newRegister('IDENTVAR', {variavel: 'NUMERO', valor: 'Discreta'});
+    newRegister('IDENTVAR', {variavel: 'ALTURA', valor: 'Contínua'});
+    newRegister('IDENTVAR', {variavel: 'PESO', valor: 'Contínua'});
+    newRegister('IDENTVAR', {variavel: 'SALÁRIO', valor: 'Contínua'});
+    newRegister('IDENTVAR', {variavel: 'SALARIO', valor: 'Contínua'});
 
 }
 
@@ -27,34 +30,46 @@ function newRegister(tabela, object) {
 
 
 /*
-await db.friends.add({
-    name: 'Camilla',
-    age: 25,
-    street: 'East 13:th Street',
-    picture: await getBlob('camilla.png')
-});*/
+ await db.friends.add({
+ name: 'Camilla',
+ age: 25,
+ street: 'East 13:th Street',
+ picture: await getBlob('camilla.png')
+ });*/
 
 //Editar valor deve ser passado todos os campos.
 /*db.people.put({
-    id: 1,
-    name: 'Camilla ZZZZF',
-    age: 25
-});*/
+ id: 1,
+ name: 'Camilla ZZZZF',
+ age: 25
+ });*/
 
 //Retornar da tabela people do campo name o valor João []
 /*db.people.where('age').equals(25).toArray()
-    .then(array => console.log(array))*/
+ .then(array => console.log(array))*/
 //Função retornar valor
-function retornaValor(tabela, campo, operador, valor) {
-    var result;
-    if (operador.equals('E')) {
-        result = db[tabela].where(campo).equalsIgnoreCase(valor).toArray();
-    } else if (operador.equals('C')) {
-        result = db[tabela].where(campo).above(valor).toArray();
+function retornaValor(tabela, campo, operador, valor, callback) {
+    var pesq;
+    if (operador === 'E') {
+        pesq = db[tabela].where(campo).equalsIgnoreCase(valor);
+    } else if (operador === 'C') {
+        pesq = db[tabela].where(campo).above(valor);
     } else {
-        result = db[tabela].where(campo).startsWith(valor).toArray();
+        pesq = db[tabela].where(campo).startsWith(valor);
     }
-    return result;
+    pesq.count(function (count) {
+        if (count > 0) {
+            pesq.each(function (ok) {
+                callback(ok);
+            }).catch(function (err) {
+                alert(err);
+            });
+        }else{
+            callback('Nenhum registro Localizado!');
+        }
+    });
+
+
 }
 
 //Retornar todos os dados da tabela []    

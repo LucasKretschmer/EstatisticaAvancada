@@ -1,18 +1,36 @@
 function init() {
-    for (var i = 0; i < document.querySelectorAll(".accordion").length; i++) {
-        document.querySelectorAll(".accordion")[i].addEventListener("click", abre);
+    for (var i = 0; i < document.querySelectorAll('.accordion').length; i++) {
+        document.querySelectorAll('.accordion')[i].addEventListener('click', abre);
     }
     geraGrafico();
+    document.querySelector('#ident-var-valor').addEventListener('keyup', identificaVar);
+}
+var ret;
+function identificaVar() {
+    var valor = this.value;
+    var campo = document.querySelector('#ident-var-result');
+    if (valor !== '' && valor.length > 2) {
+        ret = retornaValor('IDENTVAR', 'variavel', '', valor.toUpperCase(), function (e) {
+            if (e.valor !== undefined) {
+                campo.value = e.valor;
+            } else {
+                campo.value = e;
+            }
+        });
+    } else {
+        campo.value = '';
+    }
+
 }
 
 function abre(e) {
-    var acordeon = document.querySelectorAll(".accordion");
-    if (document.querySelector('.' + e.target.dataset.abre).classList.contains("visivel")) {
+    var acordeon = document.querySelectorAll('.accordion');
+    if (document.querySelector('.' + e.target.dataset.abre).classList.contains('visivel')) {
         document.querySelector('.' + e.target.dataset.abre).classList.remove('visivel');
-        acordeon.classList.remove("");
+        acordeon.classList.remove('');
     } else {
         document.querySelector('.' + e.target.dataset.abre).classList.add('visivel');
-        acordeon.classList.add("");
+        acordeon.classList.add('');
     }
 }
 
