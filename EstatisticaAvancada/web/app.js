@@ -53,13 +53,13 @@ function excluir(tabela, valorId, callback) {
     });
 }
 
-function editaValor(tabela, valorId, cpEdit, valorEdit) {
+/*function editaValor(tabela, valorId, cpEdit, valorEdit) {
     debugger;
     retornaValor(tabela, 'id', 'E', valorId, function (e) {
         var achou;
         if (e.id === valorId) {
             achou = true;
-            var obj = {cpEdit: valorEdit};
+            //var obj = {"ax": valorEdit};
             db[tabela].where('id').equals(valorId).modify({cpEdait: valorEdit});
         } else {
             achou = false;
@@ -68,7 +68,7 @@ function editaValor(tabela, valorId, cpEdit, valorEdit) {
             alert('Nenhum registro localizado para o id: ' + valorId);
         }
     });
-}
+}*/
 
 function retornaValor(tabela, campo, operador, valor, callback) {
     var pesq;
