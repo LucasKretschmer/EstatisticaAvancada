@@ -3,10 +3,9 @@ Dexie.delete("BANCO-ESTATISTICA");
 //Cria Nova DataBase
 const db = new Dexie('BANCO-ESTATISTICA');
 db.version(1).stores({
-    //Tabelas e seus campos
+//Tabelas e seus campos
     IDENTVAR: '++id,variavel,valor'
 });
-
 function init() {
     /* Valores padrões para iniciar o programa
      DECLARAÇÃO DAS VARIAVEIS */
@@ -21,7 +20,6 @@ function init() {
     newRegister('IDENTVAR', {variavel: 'PESO', valor: 'Contínua'});
     newRegister('IDENTVAR', {variavel: 'SALÁRIO', valor: 'Contínua'});
     newRegister('IDENTVAR', {variavel: 'SALARIO', valor: 'Contínua'});
-
 }
 
 function newRegister(tabela, object) {
@@ -48,12 +46,47 @@ function newRegister(tabela, object) {
 /*db.people.where('age').equals(25).toArray()
  .then(array => console.log(array))*/
 //Função retornar valor
+
+function excluir(tabela, valorId, callback) {
+    db[tabela].where("id").equals(valorId).delete().then(function (deleteCount) {
+        callback(deleteCount);
+    });
+}
+
+function editaValor(tabela, valorId, cpEdit, valorEdit) {
+    debugger;
+    retornaValor(tabela, 'id', 'E', valorId, function (e) {
+        var achou;
+        if (e.id === valorId) {
+            achou = true;
+            var obj = {cpEdit: valorEdit};
+            db[tabela].where('id').equals(valorId).modify({cpEdait: valorEdit});
+        } else {
+            achou = false;
+        }
+        if (!achou) {
+            alert('Nenhum registro localizado para o id: ' + valorId);
+        }
+    });
+}
+
 function retornaValor(tabela, campo, operador, valor, callback) {
     var pesq;
-    if (operador === 'E') {
+    /*
+     LEGENDA:
+     EIC: Equals Ignora Case
+     C: Contains
+     CE: Conteins || Equals
+     Default: Inicia com o valor
+     */
+    if (operador === 'EIC') {
         pesq = db[tabela].where(campo).equalsIgnoreCase(valor);
     } else if (operador === 'C') {
         pesq = db[tabela].where(campo).above(valor);
+    } else if (operador === 'CE') {
+        pesq = db[tabela].where(campo).aboveOrEqual(valor);
+    } else if (operador === 'E') {
+        pesq = db[tabela].where(campo).equals(valor);
     } else {
         pesq = db[tabela].where(campo).startsWith(valor);
     }
@@ -64,12 +97,10 @@ function retornaValor(tabela, campo, operador, valor, callback) {
             }).catch(function (err) {
                 alert(err);
             });
-        }else{
+        } else {
             callback('Nenhum registro Localizado!');
         }
     });
-
-
 }
 
 //Retornar todos os dados da tabela []    
