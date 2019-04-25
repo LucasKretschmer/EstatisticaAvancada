@@ -135,7 +135,9 @@ function repetidos(object) {
     json += ']}';
     return JSON.stringify(JSON.parse(json).new);
 }
-
-
+function trunc(valor, casas) {
+    var og = Math.pow(10, casas);
+    return Math.floor(valor * og) / og;
+}
 
 init();
