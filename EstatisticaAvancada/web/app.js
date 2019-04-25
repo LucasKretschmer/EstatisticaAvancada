@@ -52,15 +52,16 @@ function excluir(tabela, valorId, callback) {
         callback(deleteCount);
     });
 }
-
-/*function editaValor(tabela, valorId, cpEdit, valorEdit) {
-    debugger;
+/*
+function editaValor(tabela, valorId, cpEdit, valorEdit) {
     retornaValor(tabela, 'id', 'E', valorId, function (e) {
-        var achou;
+        
+        debugger;
         if (e.id === valorId) {
             achou = true;
-            //var obj = {"ax": valorEdit};
-            db[tabela].where('id').equals(valorId).modify({cpEdait: valorEdit});
+            //var obj = {"ax": valorEdit};   
+            var vlEd = {[cpEdit]:valorEdit};
+            db[tabela].where('id').equals(valorId).modify(vlEd);
         } else {
             achou = false;
         }

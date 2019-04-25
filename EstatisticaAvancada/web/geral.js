@@ -100,5 +100,42 @@ function total(e) {
     }
 }
 
+function ordenarDados(dados, split) {
+    var tmp = dados.split(split);
+    return tmp.sort();
+}
+
+function repetidos(object) {
+    //a = ["Mike", "Matt", "Nancy", "Adam", "Jenny", "Nancy", "Carl"];
+    a = object;
+    b = {};
+    var json = '{"new":[';
+    var z = 0;
+    for (var i = 0; i < a.length; i++) {
+
+        if (b[a[i]] === a[i]) {
+            jsontmp = json + ']}';
+            jsontmp = JSON.parse(jsontmp);
+            jsonnew = jsontmp.new;
+            for (var v = 0; v < jsonnew.length; v++) {
+                if (jsonnew[v].VAR === a[i]) {
+                    jsonnew[v].QTDE = jsonnew[v].QTDE + 1;
+                }
+            }
+            json = JSON.stringify(jsontmp).replace(']}', '');
+        } else {
+            b[a[i]] = a[i];
+            if (z !== 0) {
+                json += ',';
+            }
+            z++;
+            json += '{"VAR":"' + a[i] + '","QTDE":1}';
+        }
+    }
+    json += ']}';
+    return JSON.stringify(JSON.parse(json).new);
+}
+
+
 
 init();
