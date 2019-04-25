@@ -4,6 +4,8 @@ function init() {
     }
     geraGrafico();
     document.querySelector('#ident-var-valor').addEventListener('keyup', identificaVar);
+    document.querySelector('#dadosAdicionar').addEventListener('click', addLinha);
+    document.querySelector('#dadosPorcentagem').addEventListener('click', calculaPorcentagem);
 }
 var ret;
 function identificaVar() {
@@ -76,8 +78,27 @@ function geraGrafico() {
     });
 }
 
+function addLinha() {
+    var tam, i;
+    document.querySelector('#dadosTBody').innerHTML += '<tr><td contenteditable=\"true\"></td><td contenteditable=\"true\" id=\"dadosValor\"></td><td></td></tr>';
+    tam = document.querySelectorAll("#dadosValor").length;
 
+    for (i = 0; i < tam; i++) {
+        document.querySelectorAll("#dadosValor")[i].addEventListener('blur', total);
+    }
+}
 
+function total(e) {
+    if (e.target.innerText.trim()) {
+        if (!isNaN(e.target.innerText.trim()) && e.target.innerText.trim() !== '') {
+            var campos = document.querySelectorAll("#dadosValor"), i, total = 0;
+            for (i = 0; i < campos.length; i++) {
+                total += parseFloat(campos[i].innerText === '' ? 0 : campos[i].innerText);
+            }
+            document.querySelector('#dadosTotal').innerText = total;
+        }
+    }
+}
 
 
 init();

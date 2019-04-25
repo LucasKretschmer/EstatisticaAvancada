@@ -46,3 +46,13 @@ input[type="text"] {
     font-size: 14px;
     box-shadow: 0 2px 2px 0 rgba(46, 60, 73, .05);
 }
+table{
+    border:1px solid black;
+    border-collapse: collapse;
+}
+th, td{
+    border:1px solid black;
+}
+td{
+    padding: 5px;
+}

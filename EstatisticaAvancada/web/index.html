@@ -31,8 +31,30 @@
         </div>
 
         <button class="accordion" data-abre="divi2">Dados Relativos</button>
-        <div class="panel divi2">
+<!--        <div class="panel divi2">-->
+        <div class="">
             <p>cálculo de Porcentagens, Índices, Coeficientes e Taxas - no mínimo 5 itens de cada segmento</p>
+            <button type="button" id="dadosAdicionar">Adicionar Linha</button>
+            <button type="button" id="dadosPorcentagem">Calcular Porcentagem</button>
+            <table>
+                <thead>
+                    <tr>
+                        <td contenteditable="true">Título 1</td>
+                        <td contenteditable="true">Título 2</td>
+                        <td>Porcentagem</td>
+                    </tr>
+                </thead>
+                <tbody id="dadosTBody">
+                    
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td>Total</td>
+                        <td id="dadosTotal"></td>
+                        <td></td>
+                    </tr>
+                </tfoot>
+            </table>
         </div>
 
         <button class="accordion" data-abre="divi3">Criação de gráficos</button>
