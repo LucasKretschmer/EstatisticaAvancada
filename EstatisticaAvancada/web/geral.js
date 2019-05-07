@@ -5,6 +5,7 @@ function init() {
     geraGrafico();
     document.querySelector('#ident-var-valor').addEventListener('keyup', identificaVar);
     document.querySelector('#dadosAdicionar').addEventListener('click', addLinha);
+    document.querySelector('#dadosRemover').addEventListener('click', removeLinha);
     document.querySelector('#dadosPorcentagem').addEventListener('click', calculaPorcentagem);
 }
 var ret;
@@ -81,10 +82,26 @@ function geraGrafico() {
 function addLinha() {
     var tam, i;
     document.querySelector('#dadosTBody').innerHTML += '<tr><td contenteditable=\"true\"></td><td contenteditable=\"true\" id=\"dadosValor\"></td><td></td></tr>';
-    tam = document.querySelectorAll("#dadosValor").length;
+    tam = document.querySelectorAll('#dadosValor').length;
 
     for (i = 0; i < tam; i++) {
-        document.querySelectorAll("#dadosValor")[i].addEventListener('blur', total);
+        document.querySelectorAll('#dadosValor')[i].addEventListener('blur', total);
+        document.querySelectorAll('#dadosValor')[i].addEventListener('click', selecionaLinha);
+    }
+}
+
+function selecionaLinha(e) {
+    if (e.target.parentNode.getAttribute('class') === 'dadosSelecionada') {
+        e.target.parentNode.setAttribute('class', '');
+    } else {
+        var tam = document.querySelectorAll('#dadosValor').length;
+
+        for (var i = 0; i < tam; i++) {
+            if (document.querySelectorAll('#dadosValor')[i].parentNode.getAttribute('class') === 'dadosSelecionada') {
+                document.querySelectorAll('#dadosValor')[i].parentNode.setAttribute('class', '');
+            }
+        }
+        e.target.parentNode.setAttribute('class', 'dadosSelecionada');
     }
 }
 
@@ -138,6 +155,13 @@ function repetidos(object) {
 function trunc(valor, casas) {
     var og = Math.pow(10, casas);
     return Math.floor(valor * og) / og;
+}
+
+function removeLinha() {
+    var tabela = document.querySelector('#dadosTabela'),
+            linha = document.querySelector('#dadosSelecionada');
+
+    tabela.removeChild(linha);
 }
 
 init();
