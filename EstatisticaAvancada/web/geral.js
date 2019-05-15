@@ -6,6 +6,7 @@ function init() {
     document.querySelector('#ident-var-valor').addEventListener('keyup', identificaVar);
     document.querySelector('#dadosAdicionar').addEventListener('click', addLinha);
     document.querySelector('#dadosPorcentagem').addEventListener('click', calculaPorcentagem);
+    document.querySelector('#calc_td_freq').addEventListener('click', calcularTodasFreq)
 }
 var ret;
 function identificaVar() {
@@ -103,6 +104,7 @@ function total(e) {
 function ordenarDados(dados, split) {
     var tmp = dados.split(split);
     return tmp.sort();
+    //retorno = ["", "", "", ""]
 }
 
 function repetidos(object) {
@@ -134,10 +136,17 @@ function repetidos(object) {
     }
     json += ']}';
     return JSON.stringify(JSON.parse(json).new);
+    //retorno Json
 }
 function trunc(valor, casas) {
     var og = Math.pow(10, casas);
     return Math.floor(valor * og) / og;
+}
+
+function calcularTodasFreq(){
+    var valores = document.querySelector('.divi4').querySelector('.valores').value;
+    var rep = repetidos(ordenarDados(valores,';'));
+    debugger;
 }
 
 init();
