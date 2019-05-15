@@ -56,3 +56,23 @@ th, td{
 td{
     padding: 5px;
 }
+.dadosSelecionada{
+    background-color: aliceblue;
+}
+
+
+.TabControl{ width:100%; overflow:hidden; height:400px}
+    .TabControl #header{ width:100%; border: solid 1px; overflow:hidden; cursor:hand}
+    .TabControl #content{ width:100%; border: solid 1px;overflow:hidden; height:100%; }
+    .TabControl .abas{display:inline;}
+    .TabControl .abas li{float:left}
+    .aba{width:100px; height:30px; border:solid 1px; border-radius:5px 5px 0 0;
+        text-align:center; padding-top:5px; background:#278b70c7; cursor:pointer}
+    .ativa{width:100px; height:30px; border:solid 1px; border-radius:5px 5px 0 0;
+        text-align:center; padding-top:5px; background:#278b70c7;}
+    .ativa span, .selected span{color:#fff}
+    .TabControl #content{background:#278b70c7}
+    .TabControl .conteudo{width:100%;  background:#278b70c7; display:none; height:100%;color:#fff}
+    .selected{width:100px; height:30px; border:solid 1px; border-radius:5px 5px 0 0;
+        text-align:center; padding-top:5px; background:#278b70c7}
+    
