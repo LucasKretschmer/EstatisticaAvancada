@@ -111,7 +111,32 @@
             <p>criar tabela e calcular todos os tipos de frequências</p>
             <p>Valores separados por ;</p>
             <textarea class="valores"></textarea>
+            <p>Dados:</p>
+            <div>
+                <input type="radio" id="agroup"
+                       name="dados" value="agrupados">
+                <label for="agroup">Agrupados</label>
+                <br>
+                <input type="radio" id="nagroup"
+                       name="dados" value="nagrupados">
+                <label for="nagroup">Não Agrupados</label>
+
+            </div>
+            <div class="agrupado">
+                <!--Dados agrupados-->
+                <div>
+                    <label>Favor Informe o Intervalo de Classe!</label><br>
+                    <input type="number">                    
+                </div>                    
+            </div>
+            <div class="nagroup">
+                <!--Dados não agrupados-->
+            </div>
+
             <button id="calc_td_freq">Calcular</button>
+            <hr>
+            <p>Frequência Simples</p>
+            <div class="tab_frequencia"></div>
         </div>
 
         <button class="accordion" data-abre="divi5">Medidas de Posição</button>

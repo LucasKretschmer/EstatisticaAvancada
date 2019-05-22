@@ -37,6 +37,10 @@ input#ident-var-result {
     height: 150px !important;
 }
 
+input[type="radio"]{
+    cursor: pointer;
+}
+
 input[type="text"], .divi4 .valores {
     display: block;
     width: 100%;

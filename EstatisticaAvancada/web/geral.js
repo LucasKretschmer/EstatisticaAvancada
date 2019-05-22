@@ -7,9 +7,22 @@ function init() {
     document.querySelector('#dadosAdicionar').addEventListener('click', addLinha);
     document.querySelector('#dadosRemover').addEventListener('click', removeLinha);
     document.querySelector('#dadosPorcentagem').addEventListener('click', calculaPorcentagem);
+    document.querySelector('#calc_td_freq').addEventListener('click', calcularTodasFreq)
+
     for (var i = 0; i < document.querySelectorAll('.aba').length; i++) {
         document.querySelectorAll('.aba')[i].addEventListener('click', abreAba);
     }
+    $('.agrupado').hide();
+    $('.nagroup').hide();
+    $('input[name="dados"]').change(function () {
+        if ($('input[name="dados"]:checked').val() === "agrupados") {
+            $('.agrupado').show();
+            $('.nagroup').hide();
+        } else {
+            $('.agrupado').hide();
+            $('.nagroup').show();
+        }
+    });
 }
 var ret;
 function identificaVar() {
@@ -121,8 +134,12 @@ function total(e) {
 
 function ordenarDados(dados, split) {
     var tmp = dados.split(split);
-    return tmp.sort();
+    return tmp.sort(sortfunction);
     //retorno = ["", "", "", ""]
+}
+
+function sortfunction(a, b) {
+    return (a - b) //faz com que o array seja ordenado numericamente e de ordem crescente.
 }
 
 function repetidos(object) {
@@ -168,26 +185,51 @@ function removeLinha() {
     tabela.removeChild(linha);
 }
 
-function calculaPorcentagem(){
+function calculaPorcentagem() {
     var total = document.querySelector('#dadosTotal').innerText, valores, porcentagens;
-    
-    if(total){
+
+    if (total) {
         valores = document.querySelectorAll('#dadosValor');
         porcentagens = document.querySelectorAll('#porcentagem');
-        
-        for(var i = 0; i < valores.length; i++){
+
+        for (var i = 0; i < valores.length; i++) {
             porcentagens[i].innerText = ((parseFloat(valores[i].innerText) * 100) / total) + '%';
         }
     }
 }
 
-function abreAba(e){
+function abreAba(e) {
     var aba = e.target.id.split('ABA');
     document.querySelectorAll('#ABA')[parseInt(aba[1])].setAttribute("class", "");
-function calcularTodasFreq(){
+}
+function calcularTodasFreq() {
     var valores = document.querySelector('.divi4').querySelector('.valores').value;
-    var rep = repetidos(ordenarDados(valores,';'));
-    debugger;
+    if (valores !== '' && valores !== undefined) {
+        var rep = repetidos(ordenarDados(valores, ';'));
+        var intervalo = 1 + 3.33 * Math.log(JSON.parse(rep).length);//ignora decimais
+        //primeiro valor que ele tem na poisção 0 do rep + o intervalo 
+        // Ex: 1,2,4,5 
+        // qtde4,2,3,11
+        // Intervalo = 3
+        //     1|--3 = 6
+        //     3|--6 = 14
+        var tabela = criarTabela(rep);
+        document.querySelector('.tab_frequencia').innerHTML = tabela;
+    } else {
+        alert('Favor informar os valores separados por ;');
+    }
+
+}
+
+function criarTabela(jsonDados) {
+    var dados = JSON.parse(jsonDados);
+    var tabela = '<table>';
+    tabela += '<thead><tr><td></td><td>Frequência</td></tr></thead>';
+    for (var i = 0; i < dados.length; i++) {
+        tabela += '<tr><td>' + dados[i].VAR + '</td><td>' + dados[i].QTDE + '</td></tr>';
+    }
+    tabela += '</table>'
+    return tabela;
 }
 
 init();
