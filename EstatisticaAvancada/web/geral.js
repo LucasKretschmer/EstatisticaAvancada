@@ -199,8 +199,13 @@ function calculaPorcentagem() {
 }
 
 function abreAba(e) {
-    var aba = e.target.id.split('ABA');
-    document.querySelectorAll('#ABA')[parseInt(aba[1])].setAttribute("class", "");
+    var id = e.target.getAttribute("class").split("aba")[1].trim();
+    
+    for(var i = 0; i < document.querySelectorAll('.conteudo1').length; i++){
+        document.querySelectorAll('.conteudo1')[i].setAttribute("class", "conteudo");
+    }
+    
+    document.querySelector('#' + id).setAttribute("class", "conteudo1");
 }
 function calcularTodasFreq() {
     var valores = document.querySelector('.divi4').querySelector('.valores').value;
