@@ -5,8 +5,11 @@ function init() {
     geraGrafico();
     document.querySelector('#ident-var-valor').addEventListener('keyup', identificaVar);
     document.querySelector('#dadosAdicionar').addEventListener('click', addLinha);
+    document.querySelector('#dadosRemover').addEventListener('click', removeLinha);
     document.querySelector('#dadosPorcentagem').addEventListener('click', calculaPorcentagem);
-    document.querySelector('#calc_td_freq').addEventListener('click', calcularTodasFreq)
+    for (var i = 0; i < document.querySelectorAll('.aba').length; i++) {
+        document.querySelectorAll('.aba')[i].addEventListener('click', abreAba);
+    }
 }
 var ret;
 function identificaVar() {
@@ -81,11 +84,26 @@ function geraGrafico() {
 
 function addLinha() {
     var tam, i;
-    document.querySelector('#dadosTBody').innerHTML += '<tr><td contenteditable=\"true\"></td><td contenteditable=\"true\" id=\"dadosValor\"></td><td></td></tr>';
-    tam = document.querySelectorAll("#dadosValor").length;
+    document.querySelector('#dadosTBody').innerHTML += '<tr><td contenteditable=\"true\"></td><td contenteditable=\"true\" id=\"dadosValor\"></td>\n\
+<td id=\"porcentagem\"></td></tr>';
+    tam = document.querySelectorAll('#dadosValor').length;
 
     for (i = 0; i < tam; i++) {
-        document.querySelectorAll("#dadosValor")[i].addEventListener('blur', total);
+        document.querySelectorAll('#dadosValor')[i].addEventListener('blur', total);
+        document.querySelectorAll('#dadosValor')[i].addEventListener('click', selecionaLinha);
+    }
+}
+
+function selecionaLinha(e) {
+    if (e.target.parentNode.getAttribute('class') !== 'dadosSelecionada') {
+        var tam = document.querySelectorAll('#dadosValor').length;
+
+        for (var i = 0; i < tam; i++) {
+            if (document.querySelectorAll('#dadosValor')[i].parentNode.getAttribute('class') === 'dadosSelecionada') {
+                document.querySelectorAll('#dadosValor')[i].parentNode.setAttribute('class', '');
+            }
+        }
+        e.target.parentNode.setAttribute('class', 'dadosSelecionada');
     }
 }
 
@@ -143,6 +161,29 @@ function trunc(valor, casas) {
     return Math.floor(valor * og) / og;
 }
 
+function removeLinha() {
+    var tabela = document.querySelector('#dadosTBody'),
+            linha = document.querySelector('.dadosSelecionada');
+
+    tabela.removeChild(linha);
+}
+
+function calculaPorcentagem(){
+    var total = document.querySelector('#dadosTotal').innerText, valores, porcentagens;
+    
+    if(total){
+        valores = document.querySelectorAll('#dadosValor');
+        porcentagens = document.querySelectorAll('#porcentagem');
+        
+        for(var i = 0; i < valores.length; i++){
+            porcentagens[i].innerText = ((parseFloat(valores[i].innerText) * 100) / total) + '%';
+        }
+    }
+}
+
+function abreAba(e){
+    var aba = e.target.id.split('ABA');
+    document.querySelectorAll('#ABA')[parseInt(aba[1])].setAttribute("class", "");
 function calcularTodasFreq(){
     var valores = document.querySelector('.divi4').querySelector('.valores').value;
     var rep = repetidos(ordenarDados(valores,';'));

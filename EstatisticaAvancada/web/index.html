@@ -31,30 +31,73 @@
         </div>
 
         <button class="accordion" data-abre="divi2">Dados Relativos</button>
-<!--        <div class="panel divi2">-->
+        <!--        <div class="panel divi2">-->
         <div class="">
             <p>cálculo de Porcentagens, Índices, Coeficientes e Taxas - no mínimo 5 itens de cada segmento</p>
-            <button type="button" id="dadosAdicionar">Adicionar Linha</button>
-            <button type="button" id="dadosPorcentagem">Calcular Porcentagem</button>
-            <table>
-                <thead>
-                    <tr>
-                        <td contenteditable="true">Título 1</td>
-                        <td contenteditable="true">Título 2</td>
-                        <td>Porcentagem</td>
-                    </tr>
-                </thead>
-                <tbody id="dadosTBody">
-                    
-                </tbody>
-                <tfoot>
-                    <tr>
-                        <td>Total</td>
-                        <td id="dadosTotal"></td>
-                        <td></td>
-                    </tr>
-                </tfoot>
-            </table>
+
+
+            <div class="TabControl">
+                <div id="header">
+                    <ul class="abas">
+                        <li>
+                            <div class="aba" id="ABA1">
+                                <span>Porcentagem</span>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="aba" id="ABA2">
+                                <span>Tab 2</span>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="aba" id="ABA3">
+                                <span>Tab 3</span>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="aba" id="ABA4">
+                                <span>Tab 4</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div id="content">
+                    <div class="atual" id="ÄBA">
+                        <button type="button" id="dadosAdicionar">Adicionar Linha</button>
+                        <button type="button" id="dadosRemover">Remover Linha</button>
+                        <button type="button" id="dadosPorcentagem">Calcular Porcentagem</button>
+                        <table id="dadosTabela">
+                            <thead>
+                                <tr>
+                                    <td contenteditable="true">Título 1</td>
+                                    <td contenteditable="true">Título 2</td>
+                                    <td>Porcentagem</td>
+                                </tr>
+                            </thead>
+                            <tbody id="dadosTBody">
+
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td>Total</td>
+                                    <td id="dadosTotal"></td>
+                                    <td></td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                    <div class="conteudo" id="ÄBA">
+                        Conteúdo da aba 2
+                    </div>
+                    <div class="conteudo" id="ÄBA">
+                        Conteúdo da aba 3
+                    </div>
+                    <div class="conteudo" id="ÄBA">
+                        Conteúdo da aba 4
+                    </div>
+                </div>
+            </div>
+
         </div>
 
         <button class="accordion" data-abre="divi3">Criação de gráficos</button>
